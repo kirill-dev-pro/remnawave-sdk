@@ -13,13 +13,13 @@ This library simplifies working with the API by providing convenient controllers
 ## 📦 Installation
 
 ```bash
-npx jsr add @kcrz/remanwave-sdk
+npx jsr add @kcrz/remnawave-sdk
 ```
 
 or
 
 ```bash
-bunx jsr add @kcrz/remanwave-sdk
+bunx jsr add @kcrz/remnawave-sdk
 ```
 
 ## 🚀 Usage
