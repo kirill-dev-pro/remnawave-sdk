@@ -14,24 +14,51 @@ import { SubscriptionsTemplateController } from "./controllers/subscriptions-tem
 import { KeygenController } from "./controllers/keygen";
 import { ApiError } from "./controllers/base";
 
+/**
+ * Error class for API responses with detailed error information
+ * from the Remnawave API server.
+ */
 export { ApiError };
 
+/**
+ * RemnawaveSDK - Main client for interacting with the Remnawave API
+ * Provides access to all available API endpoints through controller instances
+ */
 export class RemnawaveSDK {
   private client: AxiosInstance;
+  /** Controller for user management operations */
   public users: UsersController;
+  /** Controller for authentication operations */
   public auth: AuthController;
+  /** Controller for node management operations */
   public nodes: NodesController;
+  /** Controller for subscription operations */
   public subscription: SubscriptionController;
+  /** Controller for system-level operations */
   public system: SystemController;
+  /** Controller for host management operations */
   public hosts: HostsController;
+  /** Controller for bulk operations on users */
   public users_bulk_actions: UsersBulkActionsController;
+  /** Controller for user statistics operations */
   public users_stats: UsersStatsController;
+  /** Controller for bandwidth statistics operations */
   public bandwidthstats: BandwidthStatsController;
+  /** Controller for inbound connection operations */
   public inbounds: InboundsController;
+  /** Controller for subscription settings operations */
   public subscriptions_settings: SubscriptionsSettingsController;
+  /** Controller for subscription template operations */
   public subscriptions_template: SubscriptionsTemplateController;
+  /** Controller for key generation operations */
   public keygen: KeygenController;
 
+  /**
+   * Creates a new RemnawaveSDK instance
+   * @param baseUrl - Base URL of the Remnawave API server
+   * @param token - Authentication token for API requests
+   * @throws Error if baseUrl or token is not provided
+   */
   constructor(baseUrl: string, token: string) {
     if (!baseUrl || !token) {
       throw new Error("baseUrl and token are required");
@@ -69,6 +96,11 @@ export class RemnawaveSDK {
     this.keygen = new KeygenController(this.client);
   }
 
+  /**
+   * Prepares the base URL for API requests
+   * @param url - Raw URL provided during initialization
+   * @returns Properly formatted URL with /api suffix
+   */
   private prepareUrl(url: string): string {
     // Remove trailing slash if exists
     let preparedUrl = url.endsWith("/") ? url.slice(0, -1) : url;
@@ -81,6 +113,11 @@ export class RemnawaveSDK {
     return preparedUrl;
   }
 
+  /**
+   * Prepares the authentication token for API requests
+   * @param token - Raw token provided during initialization
+   * @returns Properly formatted token with Bearer prefix
+   */
   private prepareToken(token: string): string {
     // Add Bearer prefix if not present
     if (!token.startsWith("Bearer ")) {
